@@ -1,3 +1,21 @@
+# Changelog
+
+## 11.1.0 / 2026-06-26
+
+### Breaking changes
+
+* None
+
+### Features / changes
+
+* KUSTOM-93: Loosened up PHP version constraint to allow installing the package on Magento 2.4.9
+  and PHP 8.5.
+
+### Fixes
+
+* KUSTOM-78: Fixed issue with shipping info API request passing incorrect request body when no tracking
+  info is passed during capture
+
 11.0.18 / 2026-03-05
 ==================
 
