@@ -3,7 +3,7 @@
     "description": "Kustom Backend Magento 2 Extension",
     "type": "magento2-module",
     "license": "Apache-2.0",
-    "version": "11.1.0",
+    "version": "12.0.0",
     "require": {
         "kustom/module-admin-settings": "^1.1",
         "kustom/module-base": "^11.0",

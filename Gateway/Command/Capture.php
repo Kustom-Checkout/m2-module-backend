@@ -13,7 +13,6 @@ use Klarna\Backend\Model\Validator;
 use Klarna\Base\Exception as KlarnaException;
 use Magento\Framework\DataObject;
 use Magento\Payment\Gateway\Command;
-use Klarna\Base\Helper\KlarnaConfig;
 use Klarna\Base\Model\OrderRepository as KlarnaOrderRepository;
 use Klarna\Backend\Model\Api\Factory;
 use Magento\Quote\Model\QuoteRepository as MageQuoteRepository;
@@ -38,7 +37,6 @@ class Capture extends AbstractCommand
      * @param KlarnaOrderRepository $kOrderRepository
      * @param MageQuoteRepository $mageQuoteRepository
      * @param MageOrderRepository $mageOrderRepository
-     * @param KlarnaConfig $helper
      * @param Factory $omFactory
      * @param RequestInterface $request
      * @param Validator $validator
@@ -49,7 +47,6 @@ class Capture extends AbstractCommand
         KlarnaOrderRepository $kOrderRepository,
         MageQuoteRepository $mageQuoteRepository,
         MageOrderRepository $mageOrderRepository,
-        KlarnaConfig $helper,
         Factory $omFactory,
         RequestInterface $request,
         Validator $validator,
@@ -59,7 +56,6 @@ class Capture extends AbstractCommand
             $kOrderRepository,
             $mageQuoteRepository,
             $mageOrderRepository,
-            $helper,
             $omFactory,
             $validator,
             $data

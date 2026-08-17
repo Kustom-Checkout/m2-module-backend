@@ -1,5 +1,20 @@
 # Changelog
 
+## 12.0.0 / 2026-08-17
+
+### Breaking changes
+
+* KUSTOM-89: Removed deprecated class `Klarna\Base\Helper\KlarnaConfig` reference,
+  `Gateway/Command/AbstractCommand.php` constructor parameter removed
+
+### Features / changes
+
+* None
+
+### Fixes
+
+* None
+
 ## 11.1.0 / 2026-06-26
 
 ### Breaking changes
