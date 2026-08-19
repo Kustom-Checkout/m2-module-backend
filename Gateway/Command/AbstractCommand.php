@@ -15,7 +15,6 @@ use Klarna\Backend\Model\Api\OrderManagement;
 use Klarna\Backend\Model\Validator;
 use Klarna\Base\Api\OrderInterface as KlarnaOrderInterface;
 use Klarna\Base\Exception;
-use Klarna\Base\Helper\KlarnaConfig;
 use Klarna\Base\Model\OrderRepository as KlarnaOrderRepository;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
@@ -53,10 +52,6 @@ abstract class AbstractCommand extends DataObject implements CommandInterface
      */
     public $mageOrderRepository;
     /**
-     * @var KlarnaConfig
-     */
-    public $helper;
-    /**
      * @var Factory
      */
     public $omFactory;
@@ -75,7 +70,6 @@ abstract class AbstractCommand extends DataObject implements CommandInterface
      * @param KlarnaOrderRepository $klarnaOrderRepository
      * @param MageQuoteRepository   $mageQuoteRepository
      * @param MageOrderRepository   $mageOrderRepository
-     * @param KlarnaConfig          $helper
      * @param Factory               $omFactory
      * @param Validator             $validator
      * @param array                 $data
@@ -85,7 +79,6 @@ abstract class AbstractCommand extends DataObject implements CommandInterface
         KlarnaOrderRepository $klarnaOrderRepository,
         MageQuoteRepository $mageQuoteRepository,
         MageOrderRepository $mageOrderRepository,
-        KlarnaConfig $helper,
         Factory $omFactory,
         Validator $validator,
         array $data = []
@@ -94,7 +87,6 @@ abstract class AbstractCommand extends DataObject implements CommandInterface
         $this->klarnaOrderRepository = $klarnaOrderRepository;
         $this->mageQuoteRepository = $mageQuoteRepository;
         $this->mageOrderRepository = $mageOrderRepository;
-        $this->helper = $helper;
         $this->omFactory = $omFactory;
         $this->validator = $validator;
     }
