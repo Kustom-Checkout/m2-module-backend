@@ -173,17 +173,26 @@ class Ordermanagement
     }
 
     /**
-     * Add shipping info to capture
+     * Add shipping info to order or capture
+     * https://docs.kustom.co/contents/api/order-management/orders/appendordershippinginfo
+     * https://docs.kustom.co/contents/api/order-management/captures/appendshippinginfo
      *
      * @param string $orderId
-     * @param string $captureId
+     * @param string $captureId Leave empty to add shipping info to order instead of a specific capture
      * @param array  $data
      * @return array
      */
     public function addShippingInfo(string $orderId, string $captureId, array $data)
     {
         $action = self::ACTIONS['add_shipping_info'];
-        $url    = "/ordermanagement/" . self::API_VERSION . "/orders/{$orderId}/captures/{$captureId}/shipping-info";
+        $url    = "/ordermanagement/" . self::API_VERSION . "/orders/{$orderId}";
+
+        if ($captureId !== '') {
+            $url .= "/captures/{$captureId}";
+        }
+
+        $url .= '/shipping-info';
+
         return $this->service->makeRequest(
             $url,
             ServiceInterface::SERVICE_OM,

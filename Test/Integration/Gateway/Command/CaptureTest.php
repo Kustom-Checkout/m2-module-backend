@@ -170,6 +170,47 @@ class CaptureTest extends TestCase
     }
 
     /**
+     * An already fully captured order must not be captured again when invoicing with a shipment.
+     *
+     * @magentoDataFixture Klarna_Backend::Test/Integration/_files/invoice_with_klarna_payment.php
+     * @magentoDbIsolation enabled
+     * @magentoAppIsolation enabled
+     */
+    public function testExecuteWithShipmentSkipsCaptureWhenOrderAlreadyFullyCaptured(): void
+    {
+        $invoice = $this->getInvoiceByOrderIncrementId(self::TEST_ORDER_INCREMENT_ID);
+        $order = $invoice->getOrder();
+        $payment = $order->getPayment();
+        $payment->setData('invoice', $invoice);
+
+        $this->stubRequest->setPostData([
+            'invoice' => ['do_shipment' => '1'],
+            'tracking' => [
+                [
+                    'carrier_code' => 'ups',
+                    'title' => 'UPS Ground',
+                    'number' => '1Z999AA10123456784',
+                ]
+            ]
+        ]);
+
+        $this->mockOrderManagement->expects($this->once())
+            ->method('isFullyCaptured')
+            ->with($order->getBaseGrandTotal(), self::TEST_RESERVATION_ID)
+            ->willReturn(true);
+
+        $this->mockOrderManagement->expects($this->never())
+            ->method('capture');
+
+        $paymentDataObject = $this->paymentDataObjectFactory->create($payment);
+
+        $this->captureCommand->execute([
+            'payment' => $paymentDataObject,
+            'amount' => 100.00,
+        ]);
+    }
+
+    /**
      * Test capture returns early when tracking info is present but missing required carrier_code.
      * Scenario: Incomplete tracking data submitted — tracking array exists but carrier_code is absent.
      * Verifies isTrackingInfoValid() rejects the data and capture is never called.

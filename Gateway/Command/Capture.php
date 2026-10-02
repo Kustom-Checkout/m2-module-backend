@@ -120,7 +120,7 @@ class Capture extends AbstractCommand
             $requestData = $requestData->toArray();
         }
 
-        if ($hasTracking && $this->isProcessingShipment($requestData, $response)) {
+        if ($hasTracking && $this->isProcessingShipment($requestData)) {
             $this->addShippingInfoToCapture(
                 $response->getCaptureId(),
                 $klarnaOrder->getReservationId(),
@@ -172,14 +172,13 @@ class Capture extends AbstractCommand
      * Check if we are also processing a shipment with this invoice
      *
      * @param array $requestData
-     * @param DataObject $response
      * @return bool
      */
-    private function isProcessingShipment(array $requestData, DataObject $response): bool
+    private function isProcessingShipment(array $requestData): bool
     {
         if (isset($requestData['invoice']['do_shipment'])
             && $requestData['invoice']['do_shipment'] === "1"
-            && $response->getCaptureId()) {
+        ) {
             return true;
         }
         return false;
